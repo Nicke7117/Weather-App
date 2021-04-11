@@ -1,9 +1,13 @@
-import { Form } from "./Form"
+import { Form } from "./Form";
+import { WeatherData } from "./WeatherData";
 
 export const Main = () => {
-    return (
-        <main>
-            <Form />
-        </main>
-    )
-}
+  return (
+    <main className="justify-center flex">
+      <div className="w-full">
+        <Form />
+        <WeatherData />
+      </div>
+    </main>
+  );
+};
