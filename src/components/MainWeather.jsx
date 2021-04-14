@@ -1,21 +1,9 @@
-import axios from "axios";
-import { apiKey } from "../apiKey";
 import sunrise from "../assets/sunrise.svg";
 import sunset from "../assets/sunset.svg";
 import wind from "../assets/wind.svg";
 
 export const MainWeather = () => {
-  function getData() {
-    axios
-      .get(
-        "https://api.openweathermap.org/data/2.5/forecast?q=Espoo&appid=" +
-          apiKey,
-        { params: { units: "metric" } }
-      )
-      .then((data) => console.log(data.data))
-      .catch((e) => console.log(e));
-  }
-  getData();
+
   return (
     <>
       <header className="bg-yellow-100 p-2 rounded-full">
