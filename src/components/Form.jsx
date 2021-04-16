@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { apiKey } from "../apiKey";
 import axios from "axios";
 
-export const Form = ({ setWeather }) => {
+export const Form = ({ setWeather, setForecast }) => {
   const [input, setInput] = useState("");
 
   const [city, setCity] = useState("");
@@ -24,11 +24,28 @@ export const Form = ({ setWeather }) => {
       .catch((e) => console.log("Error! " + e));
   }, [city]);
 
+  useEffect(() => {
+    axios
+      .get(
+        "https://api.openweathermap.org/data/2.5/forecast?q=" +
+          city +
+          "&appid=" +
+          apiKey,
+        { params: { units: "metric" } }
+      )
+      .then((data) =>
+        setForecast(data.data.list)
+      )
+      .catch((e) => console.log("Error! " + e));
+  }, [city]);
+
+  
+
   return (
-    <form className="flex justify-center">
+    <form className="flex justify-center mb-5">
       <div className="relative w-full sm:max-w-screen-sm">
         <input
-          className="mt-28 h-11 w-full rounded-full pl-2 focus:shadow-lg outline-none "
+          className="mt-28 h-11 w-full rounded-full pl-2 focus:shadow-lg outline-none"
           type="text"
           placeholder="Enter city"
           onChange={(e) => setInput(e.target.value)}
