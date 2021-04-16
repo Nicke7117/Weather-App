@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export const App = () => {
   const [weather, setWeather] = useState("");
-  const [forecast, setForecast] = useState("");
+  const [forecast, setForecast] = useState([]);
 
   return (
     <div className="w-full h-full bg-gradient-to-t from-yellow-300 to-yellow-600 absolute px-2 overflow-auto">
@@ -17,7 +17,7 @@ export const App = () => {
             {weather !== "" ? (
               <>
                 <MainWeather weather={weather} />
-                <WeatherForecast weather={weather} />{" "}
+                <WeatherForecast forecast={forecast} />
               </>
             ) : (
               <p className="text-center mt-10 text-2xl">Search for a city!</p>
