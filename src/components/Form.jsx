@@ -18,9 +18,7 @@ export const Form = ({ setWeather, setForecast }) => {
           apiKey,
         { params: { units: "metric" } }
       )
-      .then((data) =>
-        setWeather(data.data)
-      )
+      .then((data) => setWeather(data.data))
       .catch((e) => console.log("Error! " + e));
   }, [city]);
 
@@ -33,16 +31,17 @@ export const Form = ({ setWeather, setForecast }) => {
           apiKey,
         { params: { units: "metric" } }
       )
-      .then((data) =>
-        setForecast(data.data.list)
-      )
+      .then((data) => setForecast(data.data.list))
       .catch((e) => console.log("Error! " + e));
   }, [city]);
 
-  
+  const search = (e) => {
+    e.preventDefault();
+    setCity(input);
+  };
 
   return (
-    <form className="flex justify-center mb-5">
+    <form className="flex justify-center mb-5" onSubmit={search}>
       <div className="relative w-full sm:max-w-screen-sm">
         <input
           className="mt-28 h-11 w-full rounded-full pl-2 focus:shadow-lg outline-none"
@@ -54,7 +53,7 @@ export const Form = ({ setWeather, setForecast }) => {
           icon={faSearch}
           className="bottom-0 absolute right-3 mb-3"
           size="lg"
-          onClick={() => setCity(input)}
+          onClick={search}
         />
       </div>
     </form>
