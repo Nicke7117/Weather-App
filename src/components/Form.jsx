@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { apiKey } from "../apiKey";
 import axios from "axios";
 
@@ -11,6 +11,8 @@ export const Form = ({ setWeather, setForecast }) => {
 
   const [input, setInput] = useState("");
   const [city, setCity] = useState("");
+
+  const firstUpdate = useRef(true);
 
   const weatherURL =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -25,12 +27,17 @@ export const Form = ({ setWeather, setForecast }) => {
     apiKey;
 
   useEffect(() => {
-    fetchData(weatherURL, "metric")
-      .then((data) => setWeather(data.data))
-      .catch((e) => console.log(e));
-    fetchData(forecastURL, "metric")
-      .then((data) => setForecast(data.data.list))
-      .catch((e) => console.log(e));
+    // Prevent running on initial render
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+    } else {
+      fetchData(weatherURL, "metric")
+        .then((data) => setWeather(data.data))
+        .catch((e) => console.log(e));
+      fetchData(forecastURL, "metric")
+        .then((data) => setForecast(data.data.list))
+        .catch((e) => console.log(e));
+    }
   }, [city]);
 
   const search = (e) => {
