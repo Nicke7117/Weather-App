@@ -42,7 +42,7 @@ export const Form = ({ setWeather, setForecast }) => {
 
   return (
     <form className="flex justify-center mb-5" onSubmit={search}>
-      <div className="relative w-full sm:max-w-screen-sm">
+      <div className="relative w-full sm:max-w-lg">
         <input
           className="mt-28 h-11 w-full rounded-full pl-2 focus:shadow-lg outline-none"
           type="text"
