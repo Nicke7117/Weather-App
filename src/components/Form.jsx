@@ -5,34 +5,32 @@ import { apiKey } from "../apiKey";
 import axios from "axios";
 
 export const Form = ({ setWeather, setForecast }) => {
-  const [input, setInput] = useState("");
+  const fetchData = (url, unit) => {
+    return axios.get(url, { params: { units: unit } });
+  };
 
+  const [input, setInput] = useState("");
   const [city, setCity] = useState("");
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://api.openweathermap.org/data/2.5/weather?q=" +
-          city +
-          "&appid=" +
-          apiKey,
-        { params: { units: "metric" } }
-      )
-      .then((data) => setWeather(data.data))
-      .catch((e) => console.log("Error! " + e));
-  }, [city]);
+  const weatherURL =
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
+    city +
+    "&appid=" +
+    apiKey;
+
+  const forecastURL =
+    "https://api.openweathermap.org/data/2.5/forecast?q=" +
+    city +
+    "&appid=" +
+    apiKey;
 
   useEffect(() => {
-    axios
-      .get(
-        "https://api.openweathermap.org/data/2.5/forecast?q=" +
-          city +
-          "&appid=" +
-          apiKey,
-        { params: { units: "metric" } }
-      )
+    fetchData(weatherURL, "metric")
+      .then((data) => setWeather(data.data))
+      .catch((e) => console.log(e));
+    fetchData(forecastURL, "metric")
       .then((data) => setForecast(data.data.list))
-      .catch((e) => console.log("Error! " + e));
+      .catch((e) => console.log(e));
   }, [city]);
 
   const search = (e) => {
