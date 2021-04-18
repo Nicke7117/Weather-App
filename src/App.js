@@ -12,7 +12,7 @@ export const App = () => {
       <p className="ml-2">Weather app</p>
       <main className="w-full flex justify-center">
         <div className="lg:max-w-screen-lg w-full">
-          <section className="max-w-xl text-center mx-auto p-5 relative mt-4">
+          <section className="max-w-3xl text-center mx-auto p-3 relative mt-4">
             <Form setWeather={setWeather} setForecast={setForecast} />
             {weather !== "" ? (
               <>
@@ -20,7 +20,7 @@ export const App = () => {
                 <WeatherForecast forecast={forecast} />
               </>
             ) : (
-              <p className="text-center mt-10 text-2xl">Search for a city!</p>
+              <p className="text-center text-2xl">Search for a city!</p>
             )}
           </section>
         </div>
